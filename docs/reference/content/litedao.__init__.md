@@ -34,11 +34,11 @@ class Litedao:
     You can even get the list of tables or columns.
     """
 
-    def __init__(self, path, creational_script=None, raise_exception=True, raise_warning=True, connection_kwargs=None):
+    def __init__(self, path, init_script=None, raise_exception=True, raise_warning=True, connection_kwargs=None):
         """
         - path: absolute path to database file
         
-        - creational_script: a path to a file, a file-like object or a string of sql code
+        - init_script: a path to a file, a file-like object or a string of sql code
             Example_a: "CREATE TABLE my_table(id INTEGER NOT NULL PRIMARY KEY);"
             Example_b: "/path/to/script.sql"
         
@@ -57,7 +57,7 @@ class Litedao:
         """
 
     @property
-    def creational_script(self):
+    def init_script(self):
         """
         
         """
@@ -98,8 +98,6 @@ class Litedao:
         Use this method to edit your database.
         Formally: Data Definition Language (DDL) and Data Manipulation Language (DML).
         It returns True or False or raises sqlite.Error, sqlite.Warning
-        Example:
-            edit( "SELECT * FROM table_x WHERE age=?", param=(15, ) )
         """
 
     def export(self):

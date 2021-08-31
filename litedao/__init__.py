@@ -11,12 +11,12 @@ class Litedao:
     You give an SQL request with some params or not, it spills out the result nicely !
     You can even get the list of tables or columns.
     """
-    def __init__(self, path, creational_script=None, raise_exception=True,
+    def __init__(self, path, init_script=None, raise_exception=True,
                  raise_warning=True, connection_kwargs=None):
         """
         - path: absolute path to database file
 
-        - creational_script: a path to a file, a file-like object or a string of sql code
+        - init_script: a path to a file, a file-like object or a string of sql code
             Example_a: "CREATE TABLE my_table(id INTEGER NOT NULL PRIMARY KEY);"
             Example_b: "/path/to/script.sql"
 
@@ -29,16 +29,16 @@ class Litedao:
         """
 
         self._path = os.path.normpath(path)
-        self._creational_script = creational_script
+        self._init_script = init_script
         self._raise_exception = raise_exception
         self._raise_warning = raise_warning
         self._lock = threading.Lock()
-        use_creational_script = False
+        use_init_script = False
         self._con = None
         self._is_new = False
         if not os.path.isfile(path):
             self._is_new = True
-            use_creational_script = True
+            use_init_script = True
         try:
             connection_kwargs = {} if connection_kwargs is None else connection_kwargs
             if "check_same_thread" in connection_kwargs:
@@ -50,8 +50,8 @@ class Litedao:
             raise e
         finally:
             atexit.register(self.close)
-        if use_creational_script and creational_script:
-            self.script(creational_script)
+        if use_init_script and init_script:
+            self.script(init_script)
 
     # ====================================
     #              PROPERTIES
@@ -68,8 +68,8 @@ class Litedao:
         return self._con
 
     @property
-    def creational_script(self):
-        return self._creational_script
+    def init_script(self):
+        return self._init_script
 
     @property
     def is_new(self):
@@ -102,8 +102,6 @@ class Litedao:
         Use this method to edit your database.
         Formally: Data Definition Language (DDL) and Data Manipulation Language (DML).
         It returns True or False or raises sqlite.Error, sqlite.Warning
-        Example:
-            edit( "SELECT * FROM table_x WHERE age=?", param=(15, ) )
         """
         with self._lock:
             param = () if param is None else param
@@ -208,7 +206,7 @@ class Litedao:
             cur = None
             try:
                 cur = self._con.cursor()
-                cur.execute("SELECT name FROM sqlite_master WHERE type='table'")
+                cur.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'")
                 data = cur.fetchall()
             except sqlite.Error as e:
                 if self._raise_exception:
@@ -219,7 +217,7 @@ class Litedao:
             finally:
                 if cur:
                     cur.close()
-            return data
+            return [item[0] for item in data]
 
     def columns(self, table):
         """
