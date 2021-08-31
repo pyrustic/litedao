@@ -4,7 +4,7 @@
 
 This project is part of the [Pyrustic Ecosystem](https://pyrustic.github.io).
 
-[Reference](https://github.com/pyrustic/litedao/tree/master/docs/reference#readme) | [Shared](https://github.com/pyrustic/shared)
+[Installation](#installation) | [Reference](https://github.com/pyrustic/litedao/tree/master/docs/reference#readme) | [Shared](https://github.com/pyrustic/shared)
 
 
 ## Overview
@@ -74,3 +74,10 @@ print(columns)
 Read the [reference](https://github.com/pyrustic/litedao/tree/master/docs/reference#readme) !
 
 Do you need to store data collections with another simpler paradigm ? Check [Shared](https://github.com/pyrustic/shared) ! 
+
+## Installation
+
+```bash
+pip install litedao
+```
+
