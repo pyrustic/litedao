@@ -1,13 +1,7 @@
-# Modules Documentation - Overview
+# Modules Documentation
 
-**litedao.\_\_init\_\_**
+[litedao](https://github.com/pyrustic/litedao/blob/master/docs/modules/content/litedao/README.md#module-overview)
 <br>
 No description
-<br>
-[classes (2)](https://github.com/pyrustic/litedao/blob/master/docs/modules/content/litedao.__init__/classes.md)
 
-**litedao.\_\_main\_\_**
-<br>
-No description
-<br>
-[functions (1)](https://github.com/pyrustic/litedao/blob/master/docs/modules/content/litedao.__main__/functions.md)
+

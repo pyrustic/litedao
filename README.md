@@ -1,3 +1,7 @@
+**This project is deprecated since the class Database exists in the library [Shared](https://github.com/pyrustic/shared)**
+
+<br><br>
+
 <!-- Intro Text -->
 # Litedao
 <b> Intuitive interaction with SQLite database </b>
